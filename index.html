@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website Program Studi Teknik Sipil</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Set default font to Inter -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f4f7f9;
+        }
+        /* Custom styles for the interactive card effect */
+        .interactive-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .interactive-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        /* Style for the photo collage grid */
+        .collage-grid > div:nth-child(3n+1) { grid-column: span 2; }
+        .collage-grid > div:nth-child(5n+2) { grid-row: span 2; }
+        
+        .section-content {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+
+    <!-- Header & Navigation -->
+    <header class="bg-blue-700 shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex-shrink-0">
+                    <span class="text-white text-2xl font-bold tracking-wider">PRODI Teknik Sipil</span>
+                </div>
+                <!-- Desktop Menu -->
+                <nav class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <button onclick="showSection('beranda')" class="nav-link text-white hover:bg-blue-800 px-3 py-2 rounded-md text-sm font-medium transition duration-150 active-link" data-section="beranda">Home</button>
+                        <button onclick="showSection('mahasiswa')" class="nav-link text-white hover:bg-blue-800 px-3 py-2 rounded-md text-sm font-medium transition duration-150" data-section="mahasiswa">Data Mahasiswa</button>
+                        <button onclick="showSection('buku')" class="nav-link text-white hover:bg-blue-800 px-3 py-2 rounded-md text-sm font-medium transition duration-150" data-section="buku">Buku Prodi</button>
+                        <button onclick="showSection('materi')" class="nav-link text-white hover:bg-blue-800 px-3 py-2 rounded-md text-sm font-medium transition duration-150" data-section="materi">Materi Kuliah</button>
+                        <button onclick="showSection('kegiatan')" class="nav-link text-white hover:bg-blue-800 px-3 py-2 rounded-md text-sm font-medium transition duration-150" data-section="kegiatan">Kegiatan Mahasiswa</button>
+                        <button onclick="showSection('tentang')" class="nav-link text-white hover:bg-blue-800 px-3 py-2 rounded-md text-sm font-medium transition duration-150" data-section="tentang">Tentang Saya</button>
+                    </div>
+                </nav>
+                <!-- Mobile Menu Button (Hamburger) -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" class="inline-flex items-center justify-center p-2 rounded-md text-blue-200 hover:text-white hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-blue-700 focus:ring-white">
+                        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu Panel -->
+        <div class="md:hidden hidden" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <button onclick="showSection('beranda'); toggleMobileMenu()" class="nav-link text-white hover:bg-blue-800 block px-3 py-2 rounded-md text-base font-medium transition duration-150 active-link" data-section="beranda">Home</button>
+                <button onclick="showSection('mahasiswa'); toggleMobileMenu()" class="nav-link text-white hover:bg-blue-800 block px-3 py-2 rounded-md text-base font-medium transition duration-150" data-section="mahasiswa">Data Mahasiswa</button>
+                <button onclick="showSection('buku'); toggleMobileMenu()" class="nav-link text-white hover:bg-blue-800 block px-3 py-2 rounded-md text-base font-medium transition duration-150" data-section="buku">Buku Prodi</button>
+                <button onclick="showSection('materi'); toggleMobileMenu()" class="nav-link text-white hover:bg-blue-800 block px-3 py-2 rounded-md text-base font-medium transition duration-150" data-section="materi">Materi Kuliah</button>
+                <button onclick="showSection('kegiatan'); toggleMobileMenu()" class="nav-link text-white hover:bg-blue-800 block px-3 py-2 rounded-md text-base font-medium transition duration-150" data-section="kegiatan">Kegiatan Mahasiswa</button>
+                <button onclick="showSection('tentang'); toggleMobileMenu()" class="nav-link text-white hover:bg-blue-800 block px-3 py-2 rounded-md text-base font-medium transition duration-150" data-section="tentang">Tentang Saya</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+
+        <!-- a) Halaman Depan -->
+        <section id="beranda" class="section-content">
+            <div class="bg-white rounded-xl shadow-xl p-8 lg:p-12 mb-8">
+                <h1 class="text-4xl font-extrabold text-blue-800 mb-4">Selamat Datang di Program Studi Teknik Sipil</h1>
+                <p class="text-xl text-gray-600 mb-6">Membangun peradaban melalui rekayasa infrastruktur yang kuat dan berkelanjutan.</p>
+                
+                <!-- Running Text (Marquee) -->
+                <div class="bg-blue-100 p-3 rounded-lg overflow-hidden mb-8 shadow-inner">
+                    <marquee class="text-blue-800 font-semibold" scrollamount="8">
+                        Pendaftaran Field Trip ke Proyek Jembatan dimulai minggu depan! | Workshop Material Konstruksi Ramah Lingkungan | Selamat datang mahasiswa baru angkatan 2024!
+                    </marquee>
+                </div>
+
+                <div class="flex flex-col lg:flex-row items-center space-y-6 lg:space-y-0 lg:space-x-8">
+                    <!-- Ringkasan Teks -->
+                    <div class="lg:w-2/3">
+                        <p class="text-gray-700 leading-relaxed">
+                            Website ini adalah portal informasi resmi Program Studi Teknik Sipil. Kami berfokus pada empat pilar utama: Struktur, Geoteknik, Hidrologi, dan Manajemen Konstruksi. Di sini Anda dapat menemukan data mahasiswa yang inspiratif, referensi buku mata kuliah inti, ringkasan materi pembelajaran, informasi kegiatan kemahasiswaan (Himpunan, UKM), dan profil pembuat website. Mari bersama membangun masa depan infrastruktur Indonesia.
+                        </p>
+                    </div>
+                    <!-- Gambar Placeholder -->
+                    <div class="lg:w-1/3">
+                        <img src="https://www.uph.edu/wp-content/uploads/2022/10/Featured-images-Adv-Teknik-Sipil.jpg" alt="[Gambar Ilustrasi Konstruksi Sipil]" class="w-full h-auto object-cover rounded-xl shadow-lg border-4 border-blue-200">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- b) Data Mahasiswa -->
+        <section id="mahasiswa" class="hidden section-content">
+            <h2 class="text-3xl font-bold text-gray-800 mb-6 border-b-2 border-blue-500 pb-2">Data Mahasiswa Prodi</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <!-- Data Mahasiswa 1 -->
+                <div class="bg-white interactive-card rounded-xl shadow-lg p-6 flex flex-col items-center text-center">
+                    <img src="https://placehold.co/100x100/10B981/ffffff?text=FOTO+1" alt="[Foto Mahasiswa 1]" class="w-24 h-24 rounded-full mb-4 object-cover border-4 border-emerald-500">
+                    <h3 class="text-xl font-semibold text-gray-900">Bima Sakti</h3>
+                    <p class="text-blue-600">NIM: 2021101</p>
+                    <p class="text-sm text-gray-500 mt-2">Hobby: Menggambar Sketsa Jembatan</p>
+                    <p class="text-sm italic text-gray-700 mt-1">"Motto: Struktur yang kuat dimulai dari dasar yang kokoh."</p>
+                </div>
+
+                <!-- Data Mahasiswa 2 -->
+                <div class="bg-white interactive-card rounded-xl shadow-lg p-6 flex flex-col items-center text-center">
+                    <img src="https://placehold.co/100x100/F59E0B/ffffff?text=FOTO+2" alt="[Foto Mahasiswa 2]" class="w-24 h-24 rounded-full mb-4 object-cover border-4 border-amber-500">
+                    <h3 class="text-xl font-semibold text-gray-900">Larasati Wijaya</h3>
+                    <p class="text-blue-600">NIM: 2021102</p>
+                    <p class="text-sm text-gray-500 mt-2">Hobby: Analisis Anggaran Proyek</p>
+                    <p class="text-sm italic text-gray-700 mt-1">"Motto: Efisiensi waktu adalah kunci keberhasilan konstruksi."</p>
+                </div>
+
+                <!-- Data Mahasiswa 3 -->
+                <div class="bg-white interactive-card rounded-xl shadow-lg p-6 flex flex-col items-center text-center">
+                    <img src="https://placehold.co/100x100/EF4444/ffffff?text=FOTO+3" alt="[Foto Mahasiswa 3]" class="w-24 h-24 rounded-full mb-4 object-cover border-4 border-red-500">
+                    <h3 class="text-xl font-semibold text-gray-900">Rizky Adityo</h3>
+                    <p class="text-blue-600">NIM: 2021103</p>
+                    <p class="text-sm text-gray-500 mt-2">Hobby: Penelitian Material Beton</p>
+                    <p class="text-sm italic text-gray-700 mt-1">"Motto: Tidak ada yang mustahil dengan material yang tepat."</p>
+                </div>
+
+                <!-- Data Mahasiswa 4 -->
+                <div class="bg-white interactive-card rounded-xl shadow-lg p-6 flex flex-col items-center text-center">
+                    <img src="https://placehold.co/100x100/3B82F6/ffffff?text=FOTO+4" alt="[Foto Mahasiswa 4]" class="w-24 h-24 rounded-full mb-4 object-cover border-4 border-blue-500">
+                    <h3 class="text-xl font-semibold text-gray-900">Putri Anjani</h3>
+                    <p class="text-blue-600">NIM: 2021104</p>
+                    <p class="text-sm text-gray-500 mt-2">Hobby: Merancang Sistem Drainase Kota</p>
+                    <p class="text-sm italic text-gray-700 mt-1">"Motto: Air selalu menemukan jalannya, tugas kita merencanakannya."</p>
+                </div>
+
+                <!-- Data Mahasiswa 5 -->
+                <div class="bg-white interactive-card rounded-xl shadow-lg p-6 flex flex-col items-center text-center">
+                    <img src="https://placehold.co/100x100/9333EA/ffffff?text=FOTO+5" alt="[Foto Mahasiswa 5]" class="w-24 h-24 rounded-full mb-4 object-cover border-4 border-purple-600">
+                    <h3 class="text-xl font-semibold text-gray-900">Dimas Saputra</h3>
+                    <p class="text-blue-600">NIM: 2021105</p>
+                    <p class="text-sm text-gray-500 mt-2">Hobby: Survei Topografi dan GIS</p>
+                    <p class="text-sm italic text-gray-700 mt-1">"Motto: Akurasi data adalah fondasi setiap bangunan."</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- c) Buku Prodi -->
+        <section id="buku" class="hidden section-content">
+            <h2 class="text-3xl font-bold text-gray-800 mb-6 border-b-2 border-blue-500 pb-2">Buku Referensi Mata Kuliah Prodi</h2>
+            <div class="space-y-4">
+                
+                <!-- Buku 1 -->
+                <a href="#" class="block bg-white interactive-card rounded-xl shadow-md p-5 border-l-4 border-blue-600 hover:border-blue-800">
+                    <p class="text-lg font-semibold text-gray-900">1. Analisis Struktur Metode Matriks</p>
+                    <p class="text-sm text-gray-600">Bidang: Struktur</p>
+                </a>
+                
+                <!-- Buku 2 -->
+                <a href="#" class="block bg-white interactive-card rounded-xl shadow-md p-5 border-l-4 border-blue-600 hover:border-blue-800">
+                    <p class="text-lg font-semibold text-gray-900">2. Dasar-Dasar Mekanika Tanah</p>
+                    <p class="text-sm text-gray-600">Bidang: Geoteknik</p>
+                </a>
+                
+                <!-- Buku 3 -->
+                <a href="#" class="block bg-white interactive-card rounded-xl shadow-md p-5 border-l-4 border-blue-600 hover:border-blue-800">
+                    <p class="text-lg font-semibold text-gray-900">3. Perancangan Jaringan Jalan Raya</p>
+                    <p class="text-sm text-gray-600">Bidang: Transportasi</p>
+                </a>
+                
+                <!-- Buku 4 -->
+                <a href="#" class="block bg-white interactive-card rounded-xl shadow-md p-5 border-l-4 border-blue-600 hover:border-blue-800">
+                    <p class="text-lg font-semibold text-gray-900">4. Drainase Perkotaan dan Pengelolaan Air Hujan</p>
+                    <p class="text-sm text-gray-600">Bidang: Hidrologi</p>
+                </a>
+                
+                <!-- Buku 5 -->
+                <a href="#" class="block bg-white interactive-card rounded-xl shadow-md p-5 border-l-4 border-blue-600 hover:border-blue-800">
+                    <p class="text-lg font-semibold text-gray-900">5. Manajemen dan Estimasi Biaya Konstruksi</p>
+                    <p class="text-sm text-gray-600">Bidang: Manajemen Konstruksi</p>
+                </a>
+            </div>
+        </section>
+
+        <!-- d) Materi Kuliah -->
+        <section id="materi" class="hidden section-content">
+            <h2 class="text-3xl font-bold text-gray-800 mb-6 border-b-2 border-blue-500 pb-2">Ringkasan Materi Kuliah: Mekanika Bahan (Pertemuan 1)</h2>
+            <div class="bg-white rounded-xl shadow-xl p-8 lg:p-10">
+                <div class="text-lg text-gray-700 space-y-4">
+                    <h3 class="text-2xl font-semibold text-blue-800 border-b pb-2 mb-3">Topik: Konsep Dasar Tegangan dan Regangan</h3>
+                    
+                    <p><strong>Tujuan Pembelajaran:</strong> Memahami definisi dan perbedaan antara tegangan normal, tegangan geser, dan regangan. Menguasai Hukum Hooke untuk material elastis linier.</p>
+                    
+                    <ul class="list-disc list-inside space-y-2 pl-4">
+                        <li><strong>Tegangan ($\sigma$):</strong>
+                            <p class="text-sm text-gray-600 ml-4">Gaya internal yang bekerja per satuan luas penampang material ($\sigma = P/A$). Penting untuk memastikan material tidak gagal. Ada tegangan tarik dan tegangan tekan.</p>
+                        </li>
+                        <li><strong>Regangan ($\epsilon$):</strong>
+                            <p class="text-sm text-gray-600 ml-4">Deformasi atau perubahan bentuk material relatif terhadap dimensi aslinya ($\epsilon = \delta/L$). Regangan geser terjadi akibat tegangan geser.</p>
+                        </li>
+                        <li><strong>Hukum Hooke:</strong>
+                            <p class="text-sm text-gray-600 ml-4">Hubungan linier antara tegangan dan regangan dalam batas elastis ($\sigma = E \cdot \epsilon$), di mana E adalah Modulus Elastisitas (Young's Modulus), yang merupakan sifat kekakuan material.</p>
+                        </li>
+                    </ul>
+                    
+                    <p class="pt-4 text-sm italic text-gray-500 border-t mt-4">Tugas Mandiri: Cari dan jelaskan bagaimana konsep tegangan geser diterapkan dalam desain sambungan baut pada struktur baja.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- e) Kegiatan Mahasiswa (Kolase Foto) -->
+        <section id="kegiatan" class="hidden section-content">
+            <h2 class="text-3xl font-bold text-gray-800 mb-6 border-b-2 border-blue-500 pb-2">Kegiatan Mahasiswa: Kolase Foto Himpunan Mahasiswa Sipil & UKM</h2>
+            
+            <div class="bg-white rounded-xl shadow-xl p-8 mb-8">
+                <h3 class="text-2xl font-semibold text-blue-800 mb-4">Himpunan Mahasiswa Sipil (HMS) - Bakti Sosial</h3>
+                <p class="text-gray-700 mb-6">HMS aktif dalam kegiatan sosial dan kemasyarakatan, menerapkan ilmu sipil untuk kepentingan publik.</p>
+                
+                <!-- Kolase Foto HMS -->
+                <div class="collage-grid grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2 sm:gap-4 h-[400px] overflow-hidden rounded-lg">
+                    <div class="bg-blue-300 rounded-lg interactive-card h-full w-full flex items-center justify-center text-white text-xs font-bold shadow-md col-span-2 row-span-1">
+                        <img src="https://placehold.co/800x600/1D4ED8/ffffff?text=Pembangunan+MCK+Desa" alt="[Foto Pembangunan MCK Desa]" class="w-full h-full object-cover rounded-lg">
+                    </div>
+                    <div class="bg-orange-300 rounded-lg interactive-card h-full w-full flex items-center justify-center text-white text-xs font-bold shadow-md row-span-2">
+                        <img src="https://placehold.co/400x800/C2410C/ffffff?text=Survei+Lokasi" alt="[Foto Survei Lokasi Baksos]" class="w-full h-full object-cover rounded-lg">
+                    </div>
+                    <div class="bg-lime-300 rounded-lg interactive-card h-full w-full flex items-center justify-center text-white text-xs font-bold shadow-md">
+                        <img src="https://placehold.co/400x300/65A30D/ffffff?text=Penggalangan+Dana" alt="[Foto Penggalangan Dana Baksos]" class="w-full h-full object-cover rounded-lg">
+                    </div>
+                    <div class="bg-cyan-300 rounded-lg interactive-card h-full w-full flex items-center justify-center text-white text-xs font-bold shadow-md">
+                        <img src="https://placehold.co/400x300/0891B2/ffffff?text=Edukasi+Struktur" alt="[Foto Edukasi Struktur]" class="w-full h-full object-cover rounded-lg">
+                    </div>
+                    <div class="bg-pink-300 rounded-lg interactive-card h-full w-full flex items-center justify-center text-white text-xs font-bold shadow-md col-span-2">
+                        <img src="https://placehold.co/800x400/DB2777/ffffff?text=Gotong+Royong" alt="[Foto Gotong Royong Baksos]" class="w-full h-full object-cover rounded-lg">
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-xl p-8">
+                <h3 class="text-2xl font-semibold text-blue-800 mb-4">UKM Desain Berbantuan Komputer (CAD)</h3>
+                <p class="text-gray-700 mb-6">UKM ini fokus pada peningkatan skill mahasiswa dalam penggunaan software desain dan simulasi sipil (AutoCAD, SAP2000, dll).</p>
+                
+                <!-- Kolase Foto UKM CAD -->
+                <div class="collage-grid grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2 sm:gap-4 h-[400px] overflow-hidden rounded-lg">
+                    <div class="bg-gray-700 rounded-lg interactive-card h-full w-full flex items-center justify-center text-white text-xs font-bold shadow-md row-span-2">
+                         <img src="https://placehold.co/400x800/4B5563/ffffff?text=Pelatihan+AutoCAD" alt="[Foto Pelatihan AutoCAD]" class="w-full h-full object-cover rounded-lg">
+                    </div>
+                    <div class="bg-indigo-500 rounded-lg interactive-card h-full w-full flex items-center justify-center text-white text-xs font-bold shadow-md col-span-2">
+                        <img src="https://placehold.co/800x400/4338CA/ffffff?text=Simulasi+Struktur+3D" alt="[Foto Simulasi Struktur 3D]" class="w-full h-full object-cover rounded-lg">
+                    </div>
+                    <div class="bg-teal-500 rounded-lg interactive-card h-full w-full flex items-center justify-center text-white text-xs font-bold shadow-md">
+                        <img src="https://placehold.co/400x300/0D9488/ffffff?text=Presentasi+Desain" alt="[Foto Presentasi Desain]" class="w-full h-full object-cover rounded-lg">
+                    </div>
+                    <div class="bg-yellow-500 rounded-lg interactive-card h-full w-full flex items-center justify-center text-white text-xs font-bold shadow-md">
+                        <img src="https://placehold.co/400x300/D97706/ffffff?text=Sesi+Bimbingan" alt="[Foto Sesi Bimbingan CAD]" class="w-full h-full object-cover rounded-lg">
+                    </div>
+                    <div class="bg-red-500 rounded-lg interactive-card h-full w-full flex items-center justify-center text-white text-xs font-bold shadow-md col-span-3">
+                        <img src="https://placehold.co/1200x400/EF4444/ffffff?text=Lomba+Desain+CAD" alt="[Foto Lomba Desain CAD]" class="w-full h-full object-cover rounded-lg">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- f) Tentang Saya -->
+        <section id="tentang" class="hidden section-content">
+            <h2 class="text-3xl font-bold text-gray-800 mb-6 border-b-2 border-blue-500 pb-2">Tentang Pembuat Website</h2>
+            <div class="bg-white rounded-xl shadow-xl p-8 lg:p-10 flex flex-col md:flex-row items-center space-y-6 md:space-y-0 md:space-x-8">
+                
+                <div class="flex-shrink-0">
+                    <img src="https://placehold.co/150x150/1D4ED8/ffffff?text=DEV+P" alt="[Foto Profil Pengembang]" class="w-40 h-40 rounded-full object-cover border-4 border-blue-600 shadow-md">
+                </div>
+                
+                <div class="md:text-left text-center">
+                    <h3 class="text-2xl font-bold text-gray-900">Pencipta</h3>
+                    <p class="text-blue-600 mb-4">Pengembang Web | Mahasiswa Teknik Sipil (Tahun ke-3)</p>
+                    
+                    <p class="text-gray-700 leading-relaxed">
+                        Website ini dibuat sebagai studi kasus dan demonstrasi kemampuan dalam membangun portal informasi prodi yang <span class="font-semibold text-blue-700">responsif, interaktif, dan informatif</span>. Saya bersemangat dalam pengembangan front-end menggunakan teknologi modern seperti Tailwind CSS untuk memastikan estetika dan pengalaman pengguna (UX) yang optimal di berbagai perangkat, mulai dari desktop hingga mobile. Warna dominan biru dipilih untuk melambangkan stabilitas, kekuatan, dan profesionalisme di bidang Teknik Sipil.
+                    </p>
+                    <p class="mt-3 text-gray-700 leading-relaxed">
+                        Tujuan pembuatan website ini adalah untuk menyediakan akses yang cepat dan mudah ke berbagai sumber daya penting prodi, mendukung kegiatan akademik dan non-akademik mahasiswa.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white mt-8 py-4">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-sm">
+            &copy; 2024 Program Studi Teknik Sipil 
+        </div>
+    </footer>
+
+    <!-- JavaScript for SPA Navigation -->
+    <script>
+        // Fungsi untuk menampilkan bagian (section) yang dipilih dan menyembunyikan yang lain
+        function showSection(sectionId) {
+            // Sembunyikan semua konten section
+            document.querySelectorAll('.section-content').forEach(section => {
+                section.classList.add('hidden');
+            });
+
+            // Tampilkan section yang diminta
+            const activeSection = document.getElementById(sectionId);
+            if (activeSection) {
+                activeSection.classList.remove('hidden');
+            }
+
+            // Atur kelas aktif pada tombol navigasi
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active-link', 'bg-blue-800', 'font-extrabold', 'shadow-inner');
+                link.classList.add('hover:bg-blue-800');
+                if (link.dataset.section === sectionId) {
+                    link.classList.add('active-link', 'bg-blue-800', 'font-extrabold', 'shadow-inner');
+                    link.classList.remove('hover:bg-blue-800');
+                }
+            });
+        }
+
+        // Fungsi untuk toggle menu mobile
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        }
+
+        // Event listeners untuk tombol menu mobile
+        document.getElementById('mobile-menu-btn').addEventListener('click', toggleMobileMenu);
+
+        // Pastikan Halaman Depan ditampilkan saat pertama kali dimuat
+        document.addEventListener('DOMContentLoaded', () => {
+            showSection('beranda');
+        });
+    </script>
+</body>
+</html>
